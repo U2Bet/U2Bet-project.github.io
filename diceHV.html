@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>diceHV</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
+    integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+  <script src="https://unpkg.com/vue@3.2.36/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/@vue/reactivity@3"></script>
+  <script src="https://unpkg.com/@vue/runtime-dom@3"></script>
+  <style type="text/css">
+    ::-webkit-scrollbar{
+    height: 0.933333vw;
+    display: block;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: #1D2329;
+    border-radius: 0.8vw;
+  }
+
+.diceContainerDiv{
+  /* width: 100%;
+  height: 100%; */
+  padding-top: 14vw;
+  padding-left: 6.266667vw; 
+}
+.diceContainerDiv .line{
+  width: 100%;
+  height: 0.266667vw;
+  background: #1D2329;
+}
+.diceContainerDiv .contentDiv{
+  padding-bottom: 15.733333vw;  
+}
+.diceContainerDiv .contentDiv .inputDiv{
+  width: 87.466667vw;
+  height: 9.2vw;
+  background: #181B1F;
+  border: 0px solid #000000;
+  border-radius: 1.066667vw;
+  font-size: 4.4vw;
+}
+.diceContainerDiv .contentDiv .inputDiv input{
+  width: 81.866667vw;
+  height: 4.133333vw;
+  border: 0px solid #000000;
+  color: #fff;
+  background: transparent;
+  font-size: 4.4vw;
+  font-family: Myriad Pro;
+  font-weight: 400;
+  margin-left: 2.933333vw;
+  border: none;
+  outline:none;
+}
+
+.diceContainerDiv .contentDiv .verifyBtn{
+  width: 16.666667vw;
+  height: 9.2vw;
+  border: 0px solid #000000;
+  margin-top: 5.333333vw;
+  line-height: 9.2vw;
+}
+.diceContainerDiv .contentDiv .outputWrap{
+  margin-top: 7.6vw;
+}
+.diceContainerDiv .contentDiv .resultsWrap{
+  margin-top: 7.333333vw;
+}
+.diceContainerDiv .contentDiv .resultsWrap .listTable{
+  width: 93.733333vw;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+.diceContainerDiv .contentDiv .resultsWrap .listTable .table_wrapper{
+  margin-bottom: 0.933333vw;
+}
+.diceContainerDiv .contentDiv .resultsWrap .listTable table {
+  border-collapse: collapse;
+}
+.diceContainerDiv .contentDiv .resultsWrap .listTable table td{
+padding: 0 3.066667vw;
+height: 9.333333vw;
+border: 0.266667vw solid #1D2329;
+text-align: center;
+line-height: 9.333333vw;
+}
+
+/* .diceContainerDiv .contentDiv .resultsWrap .listTable .gridItem{
+  width: 80px;
+  height: 70px;
+  border: 2px solid #1D2329;
+  text-align: center;
+  line-height: 70px;
+  
+} */
+
+.diceContainerDiv .contentDiv .resultsWrap .calculate{
+  width: 66.666667vw;
+  height: 36.933333vw;
+}
+
+  </style>
+
+</head>
+
+<body>
+<div id="app">
+  <div class="diceContainerDiv strangBox">
+    <div class="titleDiv strangBox pr47">
+      <div class="fn60 normalText c1">Dice - Game Verification Script</div>
+      <div class="fn40 textF c2">Third party script used to verify games on crash game.</div>
+      <div class="line mt35"></div>
+    </div>
+    <div class="contentDiv mt58">
+      <div class="inputWrap flex-column flex-start strangBox pr47">
+        <div class="c1 fn50 normalText mb30">Input</div>
+        <span class="fn35 c2 textF">Client Seed</span>
+        <div class="inputDiv mt28 aic mb30">
+          <input type="text" v-model="inputClientText" @input.prevent="inputFuc">
+        </div>
+        <span class="fn35 c2 textF ">Server Seed</span>
+        <div class="inputDiv mt28 aic mb30">
+          <input type="text" v-model="inputServerText">
+        </div>
+        <span class="fn35 c2 textF ">Noce</span>
+        <div class="inputDiv mt28 aic">
+          <input type="text" v-model="inputNonceText">
+        </div>
+        <div class="verifyBtn self_center bg3 br8 c1 fn26 textCenter normalText" @click="onVerifyBtn">Verify</div>
+        <div class="line mt45"></div>
+      </div>
+      <div class="outputWrap strangBox pr47">
+        <div class="c1 fn50 normalText mb30">Output</div>
+        <span class="fn35 c2 textF">sha256(server_seed)</span>
+        <div class="inputDiv mt24 aic mb30">
+          <input type="text" :value="sha256(inputServerText)">
+          <!-- <input type="text" v-model="outputShaText"> -->
+        </div>
+        <span class="fn35 c2 textF ">hmac_sha256(client_seed:nonce, server_seed)</span>
+        <div class="inputDiv mt24 aic">
+          <input type="text" v-model="outputHmacText">
+        </div>
+        <div class="line mt45"></div>
+      </div>
+      <div class="resultsWrap">
+        <div class="c1 fn50 normalText mb30">Results</div>
+        <span class="fn35 c2 normalText">Final Result</span>
+        <div class="fn34 c2 normalText mt23">hmac_sha256(client_seed:nonce, server_seed)</div>
+        <div class="listTable mb40 mt20">
+          <div class="table_wrapper">
+            <table>
+              <tr class="c1 fn35">
+                <td v-for="item in results.dec">{{item}}</td>
+              </tr>
+              <tr class="c1 fn35">
+                <td v-for="item in results.hex">{{item}}</td>
+              </tr>
+            </table>
+  
+          </div>
+        </div>
+        <span class="fn35 c2 normalText">Bytes to Number</span>
+        <div class="calculate fn35 textF mt20">
+          <div class="c2 nowrap">({{ results.hex[0] + ', ' + results.hex[1] + ', ' + results.hex[2] + ', ' +
+            results.hex[3] }}) -> [0, ...4] =
+            <span class="c21"> {{ Math.floor(numResult * 100.01 * 100) / 100 }}</span>
+          </div>
+          <div class="c2">&emsp;{{ Number(results.hex[0] / 256).toFixed(9) }}&emsp;({{ results.hex[0] }} / (256 ^ 1))
+            +&ensp;{{
+            Number(results.hex[1] / (256 * 256)).toFixed(9) }}&emsp;({{ results.hex[1] }} / (256 ^ 2)) +&ensp;{{
+            Number(results.hex[2] / (256 * 256 * 256)).toFixed(9) }}&emsp;({{ results.hex[2] }} / (256 ^ 3)) +&ensp;{{
+            Number(results.hex[3] / (256 * 256 * 256 * 256)).toFixed(9) }}&emsp;({{ results.hex[3] }} / (256 ^ 4))
+            =&ensp;{{
+            numResult }}&emsp;(* 10001 / 100) =<span class="c21">&ensp;{{ Number(numResult * 100.01).toFixed(9) }}</span>
+          </div>
+  
+        </div>
+      </div>
+  
+    </div>
+  </div>
+</div>
+</body>
+
+<script type="module">
+  const { ref, onMounted, computed } = Vue;
+  const app = Vue.createApp({
+    data() {
+      const inputClientText = ref('AGkxWm3xtW')
+      const inputServerText = ref('742d2bce531e48467387d87260f7d95357595a525a8e9a5b1f021112c10d2595')
+      const inputNonceText = ref('0')
+      const outputShaText = ref('289d1674cd1060a33becddf12e218c126dc05b9e4de9202ebd1ff258bdd20965')
+      const outputHmacText = ref('3375aeff1db213a44173c3e634993f2109f90ee30b63652af6a5fdbed2d6ffda')
+
+      // 路径
+      // const route = window.location.search.replace('?', '').split('&').reduce((res, item) => {
+      //   let kv = item.split('=');
+      //   res[kv[0]] = kv[1];
+      //   return res;
+      // }, {})
+      // console.log(route);
+
+      const inputFuc=(e)=>{
+        console.log(e);
+        e.preventDefault();
+        
+      }
+
+      const hmac_sha256 = (msg, salt) => {
+        return CryptoJS.HmacSHA256(msg, salt);
+      }
+      // outputShaText
+      const sha256 = (value) => {
+        return String(CryptoJS.SHA256(CryptoJS.enc.Utf8.parse(value)));
+      }
+
+      const parseInt = (value) => {
+        return window.parseInt(value, 16);
+      }
+
+      const result_hash_list = computed(() => { //outputHmacText
+        return String(hmac_sha256(inputClientText.value + ':' + inputNonceText.value, inputServerText.value))
+      })
+
+      const resultsList = ref({
+        dec: [],
+        hex: []
+      })
+
+      const results = computed(() => {
+        let list = result_hash_list.value
+        let res = {
+          dec: [],
+          hex: []
+        }
+        for (let i = 0; i < list.length; i += 2) {
+          let dext = list[i] + list[i + 1]
+          let hext = parseInt(dext, 16)
+          res.dec.push(dext)
+          res.hex.push(hext)
+        }
+        return res
+      }
+      )
+      const numResult = computed(() => {
+        let num = 0
+        let list = results.value.hex
+        for (let i = 0; i < 4; i++) {
+          num += list[i] / Math.pow(256, (i + 1))
+        }
+        return num.toFixed(9)
+      })
+
+
+      const onVerifyBtn = () => {
+        outputShaText.value = sha256(inputServerText.value)
+        outputHmacText.value = result_hash_list.value
+      }
+      onMounted(() => {
+        onVerifyBtn()
+      })
+
+
+
+      return { inputClientText, inputServerText, inputNonceText, outputShaText, outputHmacText, 
+        hmac_sha256, sha256, parseInt, result_hash_list , resultsList , results , numResult ,
+        onVerifyBtn, inputFuc,
+      }
+    },
+  });
+
+  app.mount('#app');
+
+
+</script>
+
+</html>

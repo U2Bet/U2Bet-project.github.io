@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>crashHV</title>
+  <!-- <link rel="stylesheet" href="./lib/main.css">
+  <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
+  <script src="./lib/GoogleAnalytics.js"></script>
+  <script src="./lib/vue.min.js"></script>
+  <script src="./lib/crypto-js.js"></script>
+  <script src="./lib/tools.js"></script> -->
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
+    integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+  <script src="https://unpkg.com/vue@3.2.36/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/@vue/reactivity@3"></script>
+  <script src="https://unpkg.com/@vue/runtime-dom@3"></script>
+  <style type="text/css">
+
+.crashContainerDiv{
+  /* width: 100vw;
+  height: 100vh; */
+  padding: 14vw 6.27vw 0 6.27vw;
+}
+.crashContainerDiv .line{
+    width: 100%;
+    height: 0.266667vw;
+    background: #1D2329;
+  }
+.crashContainerDiv .contentDiv{
+  padding-bottom: 15.733333vw;
+  }
+.crashContainerDiv .contentDiv .inputDiv{
+  width: 87.466667vw;
+  height: 9.2vw;
+  background: #181B1F;
+  border: 0px solid #000000;
+  border-radius: 1.066667vw;
+  margin-top: 3.733333vw;
+  font-size: 4.4vw;
+}
+.crashContainerDiv .contentDiv .inputDiv img{
+  width: 6.666667vw;
+  height: 6.666667vw;
+  object-fit: contain;
+  margin-left: 0.933333vw;
+  margin-right: 2vw;
+}
+.crashContainerDiv .contentDiv .inputDiv input{
+  width: 75.6vw;
+  height: 4.666667vw;
+  /* background: #22222A; */
+  border: 0px solid #000000;
+  color: #fff;
+  background: transparent;
+  font-size: 4.4vw;
+  font-family: Myriad Pro;
+  font-weight: 400;
+  border: none;
+  outline:none;
+
+}
+.crashContainerDiv .contentDiv .verifyBtn{
+  width: 16.666667vw;
+  height: 9.2vw;
+  border: 0px solid #000000;
+  margin-top: 2.933333vw;
+  line-height: 9.2vw;
+}
+.crashContainerDiv .contentDiv .hashList{
+  margin-top: 8.533333vw;
+}
+.crashContainerDiv .contentDiv .hashList .griditem{
+  width: 87.466667vw;
+  height: 9.2vw;
+}
+
+
+  </style>
+
+</head>
+
+<body>
+<div id="app">
+  <div class="crashContainerDiv strangBox">
+    <div class="titleDiv">
+      <div class="fn60 normalText c1">Crash - Game</div>
+      <div class="fn60 normalText c1">Verification Script</div>
+      <div class="fn40 textF c2">Third party script used to verify games on crash game.</div>
+      <div class="line mt35"></div>
+    </div>
+    <div class="contentDiv mt58">
+      <span class="fn35 c2 textF">Game's hash</span>
+      <div class="inputDiv aic mb30">
+        <img src="./image/keyIcon.png " alt="">
+        <input type="text" v-model="hashText" class="bg48">
+      </div>
+      <span class="fn35 c2 textF">Amount of games</span>
+      <div class="inputDiv aic">
+        <img src="./image/hashTag.png " alt="">
+        <input type="text" v-model="hashCount">
+      </div>
+      <div class="verifyBtn bg3 br8 c1 fn26 textCenter normalText" @click="onVerifyBtn">Verify</div>
+      <div class="line mt45"></div>
+      <div class="hashList">
+        <div class="griditem flex-middle">
+          <span class="fn35 c2 textF ml16">Game's hash</span>
+          <span class="fn35 c2 textF mr52">Bust</span>
+        </div>
+        <div class="griditem flex-middle" v-for="(item,index) in hashData" :key="index" :class="index%2==0 ? 'bg5' : ''">
+          <span class="fn33 c2 textF flex-1 ellipsisHidden ml16">{{item.hash}}</span>
+          <span class="fn33 textF mr59 ml45" :class="item.bust>2 ? 'c21' : 'c22'">{{item.bust}}</span>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+<script type="module">
+  const { ref, onMounted  } = Vue;
+  const app = Vue.createApp({
+    data() {
+      const hashText = ref('b4d5jdaksjdkoasjokdjaskjdoasjdoijasdaspgkpgoreg436i5904386045jgt4590y8650')
+      const hashCount = ref('10')
+      const hashData = ref([])
+
+      // 路径
+    const route =  window.location.search.replace('?', '') .split('&') .reduce( (res, item)=> {
+            let kv = item.split('=');
+            res[kv[0]] = kv[1];
+            return res;
+          }, {})
+    console.log(route);
+
+      const gameResult = (seed) => {
+        const nBits = 52; // number of most significant bits to use
+        // 1. r = 52 most significant bits
+        seed = seed.slice(0, nBits / 4);
+        const r = parseInt(seed, 16);
+        // 2. X = r / 2^52
+        let X = r / Math.pow(2, nBits); // uniformly distributed in [0; 1)
+        X = parseFloat(X.toPrecision(9));
+        // 3. X = 99 / (1-X)
+        X = 99 / (1 - X);
+        // 4. return max(trunc(X), 100)
+        const result = Math.floor(X);
+        return Math.max(1, result / 100);
+      };
+      
+      const onVerifyBtn = () => {
+        console.log(123);
+        hashData.value = []
+        let prevHash = null;
+        for (let i = 0; i < hashCount.value; i++) {
+          let hash = String(prevHash ? CryptoJS.SHA256(String(prevHash)) : hashText.value)
+          let bustData = gameResult(hash)
+          hashData.value.push({ hash: hash, bust: bustData })
+          prevHash = hash;
+        }
+
+      }
+      onVerifyBtn()
+      // onMounted(() => {
+      //   onVerifyBtn()
+      // })
+
+
+
+      return { hashText, hashCount, hashData, onVerifyBtn, gameResult }
+    },
+  });
+
+  app.mount('#app');
+
+
+</script>
+
+</html>

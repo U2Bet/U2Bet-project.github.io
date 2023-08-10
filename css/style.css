@@ -1,0 +1,161 @@
+html,
+body {
+  background-color: #141619;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+input{
+  border: none;
+}
+
+.strangBox {
+  box-sizing: border-box;
+}
+.fn26 {
+  font-size: 3.466667vw !important;
+}
+
+.fn35 {
+  font-size: 4.666667vw !important;
+}
+.fn33 {
+  font-size: 4.4vw  !important;
+}
+.fn34 {
+  font-size: 4.533333vw  !important;
+}
+
+.fn40 {
+  font-size: 5.333333vw  !important;
+}
+.fn50 {
+  font-size: 6.666667vw !important;
+}
+
+.fn60 {
+  font-size: 8vw !important;
+}
+
+.normalText {
+  font-family: Myriad Pro !important;
+  font-weight: bold !important;
+}
+
+.textF {
+  font-family: Myriad Pro;
+  font-weight: 400;
+}
+.c1 {
+  color: #FFF !important;
+}
+.c2 {
+  color: #808B9B !important;
+}
+.c66 {
+  color: #7F8B9B !important;
+}
+.bg67 {
+  background: #171B1F !important;
+}
+
+.c21 {
+  color: #3BC117 !important;
+}
+.c22 {
+  color: #ED6300 !important;
+}
+.bg5 {
+  background: #181B1F !important;
+}
+
+.bg3 {
+  background: #0F8DEC !important;
+}
+.pr47 {
+  padding-right: 6.266667vw  !important;
+}
+.mt45 {
+  margin-top: 6vw  !important;
+}
+.mt20 {
+  margin-top: 2.666667vw !important;
+}
+.mt23 {
+  margin-top: 3.066667vw;
+}
+
+.mt28 {
+  margin-top: 3.733333vw;
+}
+.mt24 {
+  margin-top: 3.2vw;
+}
+.mb40 {
+  margin-bottom: 5.333333vw !important;
+}
+
+.ml16 {
+  margin-left: 2.133333vw;
+}
+.mr52 {
+  margin-right: 6.933333vw;
+}
+
+.mr59 {
+  margin-right: 7.866667vw;
+}
+.ml45 {
+  margin-left: 6vw !important;
+}
+
+.mt35 {
+  margin-top: 4.666667vw !important;
+}
+.mt58 {
+  margin-top: 7.733333vw;
+}
+.mb30 {
+  margin-bottom: 4vw !important;
+}
+.flex-middle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.self_center {
+  align-self: center;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-start {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.aic {
+  display: flex;
+  align-items: center;
+}
+.textCenter {
+  text-align: center;
+}
+.nowrap {
+  white-space: nowrap !important;
+}
+
+.ellipsisHidden {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.flex-1 {
+  flex: 1;
+}
+.br8 {
+  border-radius: 1.066667vw;
+}
