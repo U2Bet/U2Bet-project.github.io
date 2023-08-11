@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>ultimateDiceHV</title>
+  <title>ultimatedice</title>
   <link rel="stylesheet" href="./css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
     integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A=="
@@ -214,12 +214,12 @@
       const outputHmacText = ref('3375aeff1db213a44173c3e634993f2109f90ee30b63652af6a5fdbed2d6ffda')
 
       // 路径
-      // const route = window.location.search.replace('?', '').split('&').reduce((res, item) => {
-      //   let kv = item.split('=');
-      //   res[kv[0]] = kv[1];
-      //   return res;
-      // }, {})
-      // console.log(route);
+      const route = window.location.search.replace('?', '').split('&').reduce((res, item) => {
+        let kv = item.split('=');
+        res[kv[0]] = kv[1];
+        return res;
+      }, {})
+      console.log(route);
 
       const inputFuc = (e) => {
         console.log(e);
