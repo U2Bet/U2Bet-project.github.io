@@ -127,17 +127,16 @@
   const { ref, onMounted  } = Vue;
   const app = Vue.createApp({
     data() {
-      const hashText = ref('b4d5jdaksjdkoasjokdjaskjdoasjdoijasdaspgkpgoreg436i5904386045jgt4590y8650')
+      // 路径
+      const route = window.location.search.replace('?', '').split('&').reduce((res, item) => {
+        let kv = item.split('=');
+        res[kv[0]] = kv[1];
+        return res;
+      }, {})
+
+      const hashText = ref(route.gameHash || 'b4d5jdaksjdkoasjokdjaskjdoasjdoijasdaspgkpgoreg436i5904386045jgt4590y8650')
       const hashCount = ref('10')
       const hashData = ref([])
-
-      // 路径
-    const route =  window.location.search.replace('?', '') .split('&') .reduce( (res, item)=> {
-            let kv = item.split('=');
-            res[kv[0]] = kv[1];
-            return res;
-          }, {})
-    console.log(route);
 
       const gameResult = (seed) => {
         const nBits = 52; // number of most significant bits to use
