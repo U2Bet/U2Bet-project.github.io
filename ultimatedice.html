@@ -207,19 +207,19 @@
   const { ref, onMounted, computed } = Vue;
   const app = Vue.createApp({
     data() {
-      const inputClientText = ref('AGkxWm3xtW')
-      const inputServerText = ref('742d2bce531e48467387d87260f7d95357595a525a8e9a5b1f021112c10d2595')
-      const inputNonceText = ref('0')
-      const outputShaText = ref('289d1674cd1060a33becddf12e218c126dc05b9e4de9202ebd1ff258bdd20965')
-      const outputHmacText = ref('3375aeff1db213a44173c3e634993f2109f90ee30b63652af6a5fdbed2d6ffda')
-
       // 路径
       const route = window.location.search.replace('?', '').split('&').reduce((res, item) => {
         let kv = item.split('=');
         res[kv[0]] = kv[1];
         return res;
       }, {})
-      console.log(route);
+      
+      const inputClientText = ref(route.cSeed || 'AGkxWm3xtW')
+      const inputServerText = ref(route.sSeed || '742d2bce531e48467387d87260f7d95357595a525a8e9a5b1f021112c10d2595')
+      const inputNonceText = ref(route.nonce || '0')
+      const outputShaText = ref('289d1674cd1060a33becddf12e218c126dc05b9e4de9202ebd1ff258bdd20965')
+      const outputHmacText = ref('3375aeff1db213a44173c3e634993f2109f90ee30b63652af6a5fdbed2d6ffda')
+
 
       const inputFuc = (e) => {
         console.log(e);
