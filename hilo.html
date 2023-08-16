@@ -215,10 +215,10 @@ line-height: 9.333333vw;
           <span class="fn35 c66 normalText">Final Result</span>
           <div class="mt45 ">
             <span class="c68 fn35">
-              <img src="./image/Poker1.png" alt="" v-if="cardData[Math.floor(numResult * 52 )].type==1">
-              <img src="./image/Poker2.png" alt="" v-else-if="cardData[Math.floor(numResult * 52 )].type == 2">
-              <img src="./image/Poker3.png" alt="" v-else-if="cardData[Math.floor(numResult * 52 )].type == 3">
-              <img src="./image/Poker4.png" alt="" v-else-if="cardData[Math.floor(numResult * 52 )].type == 4">{{
+              <img src="./image/Poker1.png" alt="" v-if="cardData[Math.floor(numResult * 52 )].type==4">
+              <img src="./image/Poker2.png" alt="" v-else-if="cardData[Math.floor(numResult * 52 )].type == 3">
+              <img src="./image/Poker3.png" alt="" v-else-if="cardData[Math.floor(numResult * 52 )].type == 2">
+              <img src="./image/Poker4.png" alt="" v-else-if="cardData[Math.floor(numResult * 52 )].type == 1">{{
                 cardData[Math.floor(numResult * 52 )].card }},</span>
             <span class="c68 fn35">{{ Math.floor(numResult * 52 )}},</span>
             <span class="c68 fn35">{{cardData[Math.floor(numResult * 52 )].index}}</span>
@@ -232,10 +232,10 @@ line-height: 9.333333vw;
                 </tr>
                 <tr class="c68 fn35 nowrap">
                   <td v-for="item in cardData">
-                    <img src="./image/Poker1.png" alt="" v-if="item.type==1">
-                    <img src="./image/Poker2.png" alt="" v-else-if="item.type == 2">
-                    <img src="./image/Poker3.png" alt="" v-else-if="item.type == 3">
-                    <img src="./image/Poker4.png" alt="" v-else-if="item.type == 4">
+                    <img src="./image/Poker1.png" alt="" v-if="item.type==4">
+                    <img src="./image/Poker2.png" alt="" v-else-if="item.type == 3">
+                    <img src="./image/Poker3.png" alt="" v-else-if="item.type == 2">
+                    <img src="./image/Poker4.png" alt="" v-else-if="item.type == 1">
                     {{ item.card}}
                   </td>
                 </tr>
@@ -260,6 +260,7 @@ line-height: 9.333333vw;
   const app = Vue.createApp({
     data() {   
       // 黑桃：1 红桃：2 梅花：3 方块：4
+      // 方块：1 梅花：2 红桃：3 黑桃：4
       const cardData = ref([
         {
           id: 0,
