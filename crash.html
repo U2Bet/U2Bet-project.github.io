@@ -138,8 +138,16 @@
       const hashCount = ref('10')
       const hashData = ref([])
 
+      // const gameResult = (seed,salt) => {
       const gameResult = (seed) => {
         const nBits = 52; // number of most significant bits to use
+
+        // 1. HMAC_SHA256(message=seed, key=salt)  
+        // if (salt) {
+        //   const hmac = CryptoJS.HmacSHA256(CryptoJS.enc.Hex.parse(seed), salt);
+        //   seed = hmac.toString(CryptoJS.enc.Hex);
+        // }
+        
         // 1. r = 52 most significant bits
         seed = seed.slice(0, nBits / 4);
         const r = parseInt(seed, 16);
@@ -154,12 +162,12 @@
       };
       
       const onVerifyBtn = () => {
-        console.log(123);
         hashData.value = []
         let prevHash = null;
         for (let i = 0; i < hashCount.value; i++) {
-          let hash = String(prevHash ? CryptoJS.SHA256(String(prevHash)) : hashText.value)
+          let hash = String(prevHash ? CryptoJS.SHA256(String(prevHash)) : hashText.value )
           let bustData = gameResult(hash)
+          // let bustData = gameResult(hash,'0000000000000000000301e2801a9a9598bfb114e574a91a887f2132f33047e6')
           hashData.value.push({ hash: hash, bust: bustData })
           prevHash = hash;
         }
