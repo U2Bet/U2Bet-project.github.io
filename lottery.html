@@ -153,10 +153,8 @@
           </div>
           <span class="fn35 c2 textF">HMAC_SHA256 (clientSeed, serverSeed)</span>
           <div class="inputDiv mt24 aic ">
-            <!-- <input type="text" :value="sha256(inputServerText)"> -->
             <input type="text" v-model="outputResult">
           </div>
-          <div class="line mt45"></div>
         </div>
       </div>
     </div>
@@ -181,7 +179,6 @@
       const outputResult = ref('023, 055, 134')
 
       const inputFuc = (e) => {
-        console.log(e);
         e.preventDefault();
 
       }
