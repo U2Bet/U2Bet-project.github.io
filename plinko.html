@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>plinko</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
+    integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+  <script src="https://unpkg.com/vue@3.2.36/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/@vue/reactivity@3"></script>
+  <script src="https://unpkg.com/@vue/runtime-dom@3"></script>
+  <style type="text/css">
+    ::-webkit-scrollbar{
+    height: 0.933333vw;
+    display: block;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: #1D2329;
+    border-radius: 0.8vw;
+  }
+
+.diceContainerDiv{
+  /* width: 100%;
+  height: 100%; */
+  padding-top: 14vw;
+  padding-left: 6.266667vw; 
+}
+.diceContainerDiv .line{
+  width: 100%;
+  height: 0.266667vw;
+  background: #1D2329;
+}
+.diceContainerDiv .contentDiv{
+  padding-bottom: 15.733333vw;  
+}
+.diceContainerDiv .contentDiv .inputDiv{
+  width: 87.466667vw;
+  height: 9.2vw;
+  background: #181B1F;
+  border: 0px solid #000000;
+  border-radius: 1.066667vw;
+  font-size: 4.4vw;
+}
+.diceContainerDiv .contentDiv .inputDiv input{
+  width: 81.866667vw;
+  height: 4.133333vw;
+  border: 0px solid #000000;
+  color: #fff;
+  background: transparent;
+  font-size: 4.4vw;
+  font-family: Myriad Pro;
+  font-weight: 400;
+  margin-left: 2.933333vw;
+  border: none;
+  outline:none;
+}
+
+.diceContainerDiv .contentDiv .verifyBtn{
+  width: 16.666667vw;
+  height: 9.2vw;
+  border: 0px solid #000000;
+  margin-top: 5.333333vw;
+  line-height: 9.2vw;
+}
+.diceContainerDiv .contentDiv .outputWrap{
+  margin-top: 7.6vw;
+}
+.diceContainerDiv .contentDiv .NUmberWrap{
+  margin-top: 7.333333vw;
+}
+.diceContainerDiv .contentDiv .NUmberWrap .listTable{
+  width: 93.733333vw;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+.diceContainerDiv .contentDiv .NUmberWrap .listTable .table_wrapper{
+  margin-bottom: 0.933333vw;
+}
+.diceContainerDiv .contentDiv .NUmberWrap .listTable table {
+  border-collapse: collapse;
+}
+.diceContainerDiv .contentDiv .NUmberWrap .listTable table td{
+padding: 0 3.066667vw;
+height: 9.333333vw;
+border: 0.266667vw solid #1D2329;
+text-align: center;
+/* line-height: 9.333333vw; */
+}
+
+.diceContainerDiv .contentDiv .NUmberWrap .calculate{
+  width: 85vw;
+  height: 18vw;
+}
+.diceContainerDiv .contentDiv .resultsWrap{
+  margin-top: 12.667vw;
+}
+.diceContainerDiv .contentDiv .resultsWrap .resultTable table{
+  border-collapse: collapse;
+  width:87.6vw;
+}
+.diceContainerDiv .contentDiv .resultsWrap .resultTable table tr{
+  border-collapse: collapse;
+  /* width:87.6vw; */
+  height: 5.333vw;
+}
+.diceContainerDiv .contentDiv .resultsWrap .resultTable table tr td{
+  border-collapse: collapse;
+  border: 0.266667vw solid #1D2329;
+  text-align: left;
+  /* padding-left: 1.333vw; */
+}
+
+
+  </style>
+
+</head>
+
+<body>
+<div id="app">
+  <div class="diceContainerDiv strangBox">
+    <div class="titleDiv strangBox pr47">
+      <div class="fn60 normalText c1">Plinko - Game Verification Script</div>
+      <div class="fn40 textF c2">Third party script used to verify games on plinko game.</div>
+      <div class="line mt35"></div>
+    </div>
+    <div class="contentDiv mt58">
+      <div class="inputWrap flex-column flex-start strangBox pr47">
+        <div class="c1 fn50 normalText mb30">Input</div>
+        <span class="fn35 c2 textF">Client Seed</span>
+        <div class="inputDiv mt28 aic mb30">
+          <input type="text" v-model="inputClientText" @input.prevent="inputFuc">
+        </div>
+        <span class="fn35 c2 textF ">Server Seed</span>
+        <div class="inputDiv mt28 aic mb30">
+          <input type="text" v-model="inputServerText">
+        </div>
+        <span class="fn35 c2 textF ">Noce</span>
+        <div class="inputDiv mt28 aic">
+          <input type="text" v-model="inputNonceText">
+        </div>
+        <div class="verifyBtn self_center bg3 br8 c1 fn26 textCenter normalText" @click="onVerifyBtn">Verify</div>
+        <div class="line mt45"></div>
+      </div>
+      <div class="outputWrap strangBox pr47">
+        <div class="c1 fn50 normalText mb30">Output</div>
+        <span class="fn35 c2 textF">sha256(server_seed)</span>
+        <div class="inputDiv mt24 aic mb30">
+          <input type="text" :value="sha256(inputServerText)">
+          <!-- <input type="text" v-model="outputShaText"> -->
+        </div>
+        <span class="fn35 c2 textF ">hmac_sha256(client_seed:nonce, server_seed)</span>
+        <div class="inputDiv mt24 aic">
+          <!-- <input type="text" :value="result_hash"> -->
+          <input type="text" :value="outputHmacText">
+        </div>
+        <div class="line mt45"></div>
+      </div>
+      <div class="NUmberWrap">
+        <span class="fn35 c2 normalText">Convert each set of four bytes into a number</span>
+        <div class="listTable mb40 mt20">
+          <div class="table_wrapper">
+            <table>
+              <tr class="c1 fn35">
+                <td class="fn25">#</td>
+                <td v-for="(hex, index) in result_hash_list" :key="index">{{ index }}</td>
+              </tr>
+              <tr class="c1 fn35">
+                <td class="fn25">Hex</td>
+                <td v-for="(hex, index) in result_hash_list_Base.hex" :key="index">{{ hex }}</td>
+              </tr>
+              <tr class="c1 fn35">
+                <td class="fn25">Base 10</td>
+                <td v-for="(hex, index) in result_hash_list_Base.base" :key="index">{{ hex }}</td>
+              </tr>
+            </table>
+  
+          </div>
+        </div>
+        <div class="fn35 c2 normalText pr47">Each set of 4 bytes is turned into a number in the range [0, 1). Only the first calculation is displayed for
+        conciceness.</div>
+        <div class="calculate fn26 textF mt20">
+          <div class="c2">({{ result_hash_list_Base.base[0] }}/256^1) + ({{ result_hash_list_Base.base[1] }}/256^2) + ({{
+          result_hash_list_Base.base[2] }}/256^3) + ({{ result_hash_list_Base.base[3] }}/256^4)
+          </div>
+          <div class="c2">= ({{ result_hash_list_Base.base[0]/(256) }}) + ({{
+          result_hash_list_Base.base[1]/(256*256) }}) + ({{ result_hash_list_Base.base[2]/(256*256*256) }}) + ({{
+          result_hash_list_Base.base[3]/(256*256*256*256) }})
+          </div>
+          <div class="c2">= ({{ result_hash_list_Base.base[0]/(256)  + 
+          result_hash_list_Base.base[1]/(256*256)  +  result_hash_list_Base.base[2]/(256*256*256) + 
+          result_hash_list_Base.base[3]/(256*256*256*256) }})
+          </div>
+  
+        </div>
+      </div>
+      <div class="resultsWrap">
+        <div class="c1 fn50 normalText mb63">Results</div>
+        <div class="resultTable ">
+            <table>
+              <tr class="c1 fn22">
+                <td >Pin #</td>
+                <td >Number</td>
+                <td >Number*2</td>
+                <td >Direction</td>
+              </tr>
+              <tr class="c2 fn20" v-for="(num,index) in results">
+                <td >{{index+1}}</td>
+                <td>{{ num }}</td>
+                <td>{{ num*2 }}</td>
+                <td>{{ num>.5?'Right':'Left' }}</td>
+              </tr>
+            </table>
+        </div>
+        
+      </div>
+  
+    </div>
+  </div>
+</div>
+</body>
+
+<script type="module">
+  const { ref, onMounted, computed } = Vue;
+  const app = Vue.createApp({
+    data() {   
+      // 路径
+      const route = window.location.search.replace('?', '').split('&').reduce((res, item) => {
+        let kv = item.split('=');
+        res[kv[0]] = kv[1];
+        return res;
+      }, {})
+      console.log(route);      
+
+      const inputClientText = ref(route.cSeed || '5wa6STrPb0D5x8mFz0HdFCbm')
+      const inputServerText = ref(route.sSeed || '81d2411e935e356753c9a5f497e0b342e635f61ab5aa1a5661cb978a535bdf5a')
+      const inputNonceText = ref(route.nonce || '0')
+      const outputShaText = ref(route.sseedHash || 'b486890b70d77945864bb322121af0efdb2b6dd0fa0dba70373566ac6e120e71')
+      const outputHmacText = ref('3375aeff1db213a44173c3e634993f2109f90ee30b63652af6a5fdbed2d6ffda')
+
+
+      const inputFuc=(e)=>{
+        console.log(e);
+        e.preventDefault();
+        
+      }
+      const hmac_sha256 = (msg, salt) => {
+        return CryptoJS.HmacSHA256(msg, salt);
+      }
+      const sha256 = (value) => {
+        return String(CryptoJS.SHA256(CryptoJS.enc.Utf8.parse(value)));
+      }
+      const parseInt = (value) => {
+        return window.parseInt(value, 16);
+      }
+      // outputShaText
+      const hmac_sha512 = (msg, salt) => {
+        return CryptoJS.HmacSHA512(msg, salt);
+      }
+      const result_hash = computed(() => { //outputHmacText
+        return String(hmac_sha512(inputClientText.value + ':' + inputNonceText.value, inputServerText.value))
+      })
+      //convert Number
+      const result_hash_list = computed(() => { 
+        return result_hash.value.match(/.{2}/g);
+      })
+      const result_hash_list_Base = computed(() => { 
+        let list = result_hash.value.match(/.{2}/g)
+        let res = {
+          base: [],
+          hex: []
+        }
+        for (let i = 0; i < list.length; i += 1) {
+          let baset= parseInt(list[i])
+          let hext = list[i]
+          res.base.push(baset)
+          res.hex.push(hext)
+        }
+        return res;
+      })
+
+      const results = computed(() => {
+        let arr = [];
+        let hexArr = result_hash_list.value
+        for (let i = 0, l = hexArr.length; i < l; i += 4) {
+          let num = parseInt(hexArr[i]) / Math.pow(256, 1) + parseInt(hexArr[i + 1]) / Math.pow(256, 2) + parseInt(hexArr[i + 2]) / Math.pow(256, 3) + parseInt(hexArr[i + 3]) / Math.pow(256, 4)
+          arr.push(num);
+        }
+        console.log(arr);
+        return arr;
+      }
+      )
+
+      const onVerifyBtn = () => {
+        outputShaText.value = sha256(inputServerText.value)
+        outputHmacText.value = result_hash.value
+      }
+      onMounted(() => {
+        onVerifyBtn()
+      })
+
+
+
+      return { inputClientText, inputServerText, inputNonceText, outputShaText, outputHmacText, 
+        hmac_sha256, sha256, parseInt, result_hash_list  , results  ,
+        onVerifyBtn, inputFuc,
+        result_hash, hmac_sha512, result_hash_list_Base
+      }
+    },
+  });
+
+  app.mount('#app');
+
+
+</script>
+
+</html>
