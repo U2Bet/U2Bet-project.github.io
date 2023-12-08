@@ -21,7 +21,7 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background-color: #1D2329;
+      background-color: #30333A;
       border-radius: 0.8vw;
     }
 
@@ -35,7 +35,7 @@
     .diceContainerDiv .line {
       width: 100%;
       height: 0.266667vw;
-      background: #1D2329;
+      background: #30333A;
     }
 
     .diceContainerDiv .contentDiv {
@@ -45,7 +45,7 @@
     .diceContainerDiv .contentDiv .inputDiv {
       width: 87.466667vw;
       height: 9.2vw;
-      background: #181B1F;
+      background: #1D1E22;
       border: 0px solid #000000;
       border-radius: 1.066667vw;
       font-size: 4.4vw;
@@ -101,19 +101,10 @@
     .diceContainerDiv .contentDiv .resultsWrap .listTable table td {
       padding: 0 3.066667vw;
       height: 9.333333vw;
-      border: 0.266667vw solid #1D2329;
+      border: 0.266667vw solid #30333A;
       text-align: center;
       line-height: 9.333333vw;
     }
-
-    /* .diceContainerDiv .contentDiv .resultsWrap .listTable .gridItem{
-  width: 80px;
-  height: 70px;
-  border: 2px solid #1D2329;
-  text-align: center;
-  line-height: 70px;
-  
-} */
 
     .diceContainerDiv .contentDiv .resultsWrap .calculate {
       width: 66.666667vw;
@@ -128,17 +119,17 @@
     <div class="diceContainerDiv strangBox">
       <div class="titleDiv strangBox pr47">
         <div class="fn60 normalText c1">Lottery Verify</div>
-        <div class="fn40 textF c2">Third party script used to verify games on crash game.</div>
+        <div class="fn40 textF c25">Third party script used to verify games on crash game.</div>
         <div class="line mt35"></div>
       </div>
       <div class="contentDiv mt58">
         <div class="inputWrap flex-column flex-start strangBox pr47">
           <div class="c1 fn50 normalText mb30">Input</div>
-          <span class="fn35 c2 textF">Server Seed</span>
+          <span class="fn35 c25 textF">Server Seed</span>
           <div class="inputDiv mt28 aic mb30">
             <input type="text" v-model="inputServerText" @input.prevent="inputFuc">
           </div>
-          <span class="fn35 c2 textF ">Client Seed (Hashed)</span>
+          <span class="fn35 c25 textF ">Client Seed (Hashed)</span>
           <div class="inputDiv mt28 aic mb30">
             <input type="text" v-model="inputClientText">
           </div>
@@ -147,11 +138,11 @@
         </div>
         <div class="outputWrap strangBox pr47">
           <div class="c1 fn50 normalText mb30">Output</div>
-          <span class="fn35 c2 textF ">HMAC_SHA256 (clientSeed, serverSeed)</span>
+          <span class="fn35 c25 textF ">HMAC_SHA256 (clientSeed, serverSeed)</span>
           <div class="inputDiv mt24 aic mb30">
             <input type="text" :value="outputHmacText">
           </div>
-          <span class="fn35 c2 textF">HMAC_SHA256 (clientSeed, serverSeed)</span>
+          <span class="fn35 c25 textF">HMAC_SHA256 (clientSeed, serverSeed)</span>
           <div class="inputDiv mt24 aic ">
             <input type="text" v-model="outputResult">
           </div>

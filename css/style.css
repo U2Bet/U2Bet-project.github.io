@@ -1,6 +1,6 @@
 html,
 body {
-  background-color: #141619;
+  background-color: #24262B;
 }
 *{
   margin: 0;
@@ -63,6 +63,10 @@ input{
 .c2 {
   color: #808B9B !important;
 }
+.c25 {
+  color: #98A7B5 !important;
+}
+
 .c66 {
   color: #7F8B9B !important;
 }
@@ -83,10 +87,17 @@ input{
 .bg5 {
   background: #181B1F !important;
 }
-
-.bg3 {
-  background: #0F8DEC !important;
+.bg6 {
+  background: #1D1E22 !important;
 }
+
+/* .bg3 {
+  background: #0F8DEC !important;
+} */
+.bg3 {
+  background: #4B69E3 !important;
+}
+
 .pr47 {
   padding-right: 6.266667vw  !important;
 }

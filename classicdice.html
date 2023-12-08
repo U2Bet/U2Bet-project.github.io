@@ -20,7 +20,7 @@
     display: block;
   }
   ::-webkit-scrollbar-thumb{
-    background-color: #1D2329;
+    background-color: #30333A;
     border-radius: 0.8vw;
   }
 
@@ -33,7 +33,7 @@
 .diceContainerDiv .line{
   width: 100%;
   height: 0.266667vw;
-  background: #1D2329;
+  background: #30333A;
 }
 .diceContainerDiv .contentDiv{
   padding-bottom: 15.733333vw;  
@@ -41,7 +41,7 @@
 .diceContainerDiv .contentDiv .inputDiv{
   width: 87.466667vw;
   height: 9.2vw;
-  background: #181B1F;
+  background: #1D1E22;
   border: 0px solid #000000;
   border-radius: 1.066667vw;
   font-size: 4.4vw;
@@ -90,7 +90,7 @@
 .diceContainerDiv .contentDiv .resultsWrap .listTable table td{
 padding: 0 3.066667vw;
 height: 9.333333vw;
-border: 0.266667vw solid #1D2329;
+border: 0.266667vw solid #30333A;
 text-align: center;
 line-height: 9.333333vw;
 }
@@ -98,7 +98,7 @@ line-height: 9.333333vw;
 /* .diceContainerDiv .contentDiv .resultsWrap .listTable .gridItem{
   width: 80px;
   height: 70px;
-  border: 2px solid #1D2329;
+  border: 2px solid #30333A;
   text-align: center;
   line-height: 70px;
   
@@ -118,21 +118,21 @@ line-height: 9.333333vw;
   <div class="diceContainerDiv strangBox">
     <div class="titleDiv strangBox pr47">
       <div class="fn60 normalText c1">Dice - Game Verification Script</div>
-      <div class="fn40 textF c2">Third party script used to verify games on crash game.</div>
+      <div class="fn40 textF c25">Third party script used to verify games on crash game.</div>
       <div class="line mt35"></div>
     </div>
     <div class="contentDiv mt58">
       <div class="inputWrap flex-column flex-start strangBox pr47">
         <div class="c1 fn50 normalText mb30">Input</div>
-        <span class="fn35 c2 textF">Client Seed</span>
+        <span class="fn35 c25 textF">Client Seed</span>
         <div class="inputDiv mt28 aic mb30">
           <input type="text" v-model="inputClientText" @input.prevent="inputFuc">
         </div>
-        <span class="fn35 c2 textF ">Server Seed</span>
+        <span class="fn35 c25 textF ">Server Seed</span>
         <div class="inputDiv mt28 aic mb30">
           <input type="text" v-model="inputServerText">
         </div>
-        <span class="fn35 c2 textF ">Noce</span>
+        <span class="fn35 c25 textF ">Noce</span>
         <div class="inputDiv mt28 aic">
           <input type="text" v-model="inputNonceText">
         </div>
@@ -141,12 +141,12 @@ line-height: 9.333333vw;
       </div>
       <div class="outputWrap strangBox pr47">
         <div class="c1 fn50 normalText mb30">Output</div>
-        <span class="fn35 c2 textF">sha256(server_seed)</span>
+        <span class="fn35 c25 textF">sha256(server_seed)</span>
         <div class="inputDiv mt24 aic mb30">
           <input type="text" :value="sha256(inputServerText)">
           <!-- <input type="text" v-model="outputShaText"> -->
         </div>
-        <span class="fn35 c2 textF ">hmac_sha256(client_seed:nonce, server_seed)</span>
+        <span class="fn35 c25 textF ">hmac_sha256(client_seed:nonce, server_seed)</span>
         <div class="inputDiv mt24 aic">
           <input type="text" :value="outputHmacText">
         </div>
@@ -154,8 +154,8 @@ line-height: 9.333333vw;
       </div>
       <div class="resultsWrap">
         <div class="c1 fn50 normalText mb30">Results</div>
-        <span class="fn35 c2 normalText">Final Result</span>
-        <div class="fn34 c2 normalText mt23">hmac_sha256(client_seed:nonce, server_seed)</div>
+        <span class="fn35 c25 normalText">Final Result</span>
+        <div class="fn34 c25 normalText mt23">hmac_sha256(client_seed:nonce, server_seed)</div>
         <div class="listTable mb40 mt20">
           <div class="table_wrapper">
             <table>
@@ -169,13 +169,13 @@ line-height: 9.333333vw;
   
           </div>
         </div>
-        <span class="fn35 c2 normalText">Bytes to Number</span>
+        <span class="fn35 c25 normalText">Bytes to Number</span>
         <div class="calculate fn35 textF mt20">
-          <div class="c2 nowrap">({{ results.hex[0] + ', ' + results.hex[1] + ', ' + results.hex[2] + ', ' +
+          <div class="c25 nowrap">({{ results.hex[0] + ', ' + results.hex[1] + ', ' + results.hex[2] + ', ' +
             results.hex[3] }}) -> [0, ...4] =
             <span class="c21"> {{ Math.floor(numResult * 100.01 * 100) / 100 }}</span>
           </div>
-          <div class="c2">&emsp;{{ Number(results.hex[0] / 256).toFixed(9) }}&emsp;({{ results.hex[0] }} / (256 ^ 1))
+          <div class="c25">&emsp;{{ Number(results.hex[0] / 256).toFixed(9) }}&emsp;({{ results.hex[0] }} / (256 ^ 1))
             +&ensp;{{
             Number(results.hex[1] / (256 * 256)).toFixed(9) }}&emsp;({{ results.hex[1] }} / (256 ^ 2)) +&ensp;{{
             Number(results.hex[2] / (256 * 256 * 256)).toFixed(9) }}&emsp;({{ results.hex[2] }} / (256 ^ 3)) +&ensp;{{

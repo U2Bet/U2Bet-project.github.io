@@ -30,7 +30,7 @@
 .crashContainerDiv .line{
     width: 100%;
     height: 0.266667vw;
-    background: #1D2329;
+    background: #30333A;
   }
 .crashContainerDiv .contentDiv{
   padding-bottom: 15.733333vw;
@@ -38,7 +38,7 @@
 .crashContainerDiv .contentDiv .inputDiv{
   width: 87.466667vw;
   height: 9.2vw;
-  background: #181B1F;
+  background: #1D1E22;
   border: 0px solid #000000;
   border-radius: 1.066667vw;
   margin-top: 3.733333vw;
@@ -91,16 +91,16 @@
     <div class="titleDiv">
       <div class="fn60 normalText c1">Crash - Game</div>
       <div class="fn60 normalText c1">Verification Script</div>
-      <div class="fn40 textF c2">Third party script used to verify games on crash game.</div>
+      <div class="fn40 textF c25">Third party script used to verify games on crash game.</div>
       <div class="line mt35"></div>
     </div>
     <div class="contentDiv mt58">
-      <span class="fn35 c2 textF">Game's hash</span>
+      <span class="fn35 c25 textF">Game's hash</span>
       <div class="inputDiv aic mb30">
         <img src="./image/keyIcon.png " alt="">
         <input type="text" v-model="hashText" class="bg48">
       </div>
-      <span class="fn35 c2 textF">Amount of games</span>
+      <span class="fn35 c25 textF">Amount of games</span>
       <div class="inputDiv aic">
         <img src="./image/hashTag.png " alt="">
         <input type="text" v-model="hashCount">
@@ -109,10 +109,10 @@
       <div class="line mt45"></div>
       <div class="hashList">
         <div class="griditem flex-middle">
-          <span class="fn35 c2 textF ml16">Game's hash</span>
-          <span class="fn35 c2 textF mr52">Bust</span>
+          <span class="fn35 c25 textF ml16">Game's hash</span>
+          <span class="fn35 c25 textF mr52">Bust</span>
         </div>
-        <div class="griditem flex-middle" v-for="(item,index) in hashData" :key="index" :class="index%2==0 ? 'bg5' : ''">
+        <div class="griditem flex-middle" v-for="(item,index) in hashData" :key="index" :class="index%2==0 ? 'bg6' : ''">
           <span class="fn33 c2 textF flex-1 ellipsisHidden ml16">{{item.hash}}</span>
           <span class="fn33 textF mr59 ml45" :class="item.bust>2 ? 'c21' : 'c22'">{{item.bust}}</span>
         </div>
