@@ -15,6 +15,98 @@
   <script src="https://unpkg.com/@vue/reactivity@3"></script>
   <script src="https://unpkg.com/@vue/runtime-dom@3"></script>
   <style type="text/css">
+  ::-webkit-scrollbar{
+    height:0.08rem;
+    display: block;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: #1D2329;
+    border-radius: 0.02666666666666667rem;
+  }
+.diceContainerDiv .title{
+    font-size: 0.4rem;
+  }
+.diceContainerDiv .detail{
+    font-size: 0.18666666666666668rem;
+    margin-top: 0.3466666666666667rem;
+  }
+.diceContainerDiv .line{
+    width: 100%;
+    height: 0.013333333333333334rem;
+    background: #1D2329;
+  }
+.diceContainerDiv .contentDiv{
+  padding-bottom: 1.3333333333333333rem;
+  margin-top: 0.32rem;
+}
+.diceContainerDiv .contentDiv .inputDiv{
+  width: 100%;
+  /* width: 18rem; */
+  height: 0.5333333333333333rem;
+  background: #181B1F;
+  border: none;
+  border-radius: 0.10666666666666667rem;
+  margin-top: 0.17333333333333334rem;
+  font-size: 0.18666666666666668rem;
+}
+.diceContainerDiv .contentDiv .inputDiv input{
+  width: 100%;
+  height: 0.5333333333333333rem;
+  border: 0px solid #000000;
+  color: #fff;
+  background: transparent;
+  font-size: 0.18666666666666668rem;
+  font-family: Myriad Pro;
+  font-weight: 400;
+  border: none;
+  outline:none;
+  margin-left: 0.25333333333333335rem;
+}
+.diceContainerDiv .contentDiv .outputWrap{
+  margin-top: 0.32rem;
+}
+.diceContainerDiv .contentDiv .NUmberWrap{
+  margin-top: 0.30666666666666664rem;
+}
+.diceContainerDiv .contentDiv .NUmberWrap .listTable{
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+.diceContainerDiv .contentDiv .NUmberWrap .listTable .table_wrapper{
+  margin-bottom: 0.08rem;
+}
+.diceContainerDiv .contentDiv .NUmberWrap .listTable table {
+  border-collapse: collapse;
+}
+.diceContainerDiv .contentDiv .NUmberWrap .listTable table td{
+padding: 0 0.30666666666666664rem;
+height: 0.76rem;
+border: 0.02666666666666667rem solid #30333A;
+text-align: center;
+line-height: 0.76rem;
+}
+
+.diceContainerDiv .contentDiv .resultsWrap{
+  margin-top: 0.30666666666666664rem;
+}
+.diceContainerDiv .contentDiv .resultsWrap .resultTable table{
+  border-collapse: collapse;
+  width:100%;
+}
+.diceContainerDiv .contentDiv .resultsWrap .resultTable table tr{
+  border-collapse: collapse;
+  height: 0.7466666666666667rem;
+}
+.diceContainerDiv .contentDiv .resultsWrap .resultTable table tr td{
+  border-collapse: collapse;
+  border:0.02666666666666667rem solid #30333A;
+  text-align: center;
+}
+@media screen and (max-width: 750px) {
     ::-webkit-scrollbar{
     height: 0.933333vw;
     display: block;
@@ -23,10 +115,15 @@
     background-color: #30333A;
     border-radius: 0.8vw;
   }
+.diceContainerDiv .title{
+    font-size: 8vw;
+  }
+.diceContainerDiv .detail{
+    font-size: 5.333333vw;
+    margin-top:0;
+  }
 
 .diceContainerDiv{
-  /* width: 100%;
-  height: 100%; */
   padding-top: 14vw;
   padding-left: 6.266667vw; 
 }
@@ -36,7 +133,8 @@
   background: #30333A;
 }
 .diceContainerDiv .contentDiv{
-  padding-bottom: 15.733333vw;  
+  padding-bottom: 15.733333vw; 
+  margin-top: 7.733333vw; 
 }
 .diceContainerDiv .contentDiv .inputDiv{
   width: 87.466667vw;
@@ -60,13 +158,6 @@
   outline:none;
 }
 
-.diceContainerDiv .contentDiv .verifyBtn{
-  width: 16.666667vw;
-  height: 9.2vw;
-  border: 0px solid #000000;
-  margin-top: 5.333333vw;
-  line-height: 9.2vw;
-}
 .diceContainerDiv .contentDiv .outputWrap{
   margin-top: 7.6vw;
 }
@@ -92,7 +183,6 @@ padding: 0 3.066667vw;
 height: 9.333333vw;
 border: 0.266667vw solid #30333A;
 text-align: center;
-/* line-height: 9.333333vw; */
 }
 
 .diceContainerDiv .contentDiv .NUmberWrap .calculate{
@@ -108,63 +198,63 @@ text-align: center;
 }
 .diceContainerDiv .contentDiv .resultsWrap .resultTable table tr{
   border-collapse: collapse;
-  /* width:87.6vw; */
   height: 5.333vw;
 }
 .diceContainerDiv .contentDiv .resultsWrap .resultTable table tr td{
   border-collapse: collapse;
   border: 0.266667vw solid #30333A;
   text-align: left;
-  /* padding-left: 1.333vw; */
 }
-
+  
+}
 
   </style>
 
 </head>
 
-<body>
+<body
+  style="font-family:Myriad Pro, Inter,-apple-system,Framedcn,Helvetica Neue,Condensed,DisplayRegular,Helvetica,Arial,PingFang SC,Hiragino Sans GB,WenQuanYi Micro Hei,Microsoft Yahei,sans-serif;">
 <div id="app">
-  <div class="diceContainerDiv strangBox">
+  <div class="diceContainerDiv strangBox wrapPadding">
     <div class="titleDiv strangBox pr47">
-      <div class="fn60 normalText c1">Plinko - Game Verification Script</div>
-      <div class="fn40 textF c25">Third party script used to verify games on plinko game.</div>
+      <div class="title normalText c1">Plinko - Game Verification Script</div>
+      <div class="detail textF c25">Third party script used to verify games on plinko game.</div>
       <div class="line mt35"></div>
     </div>
-    <div class="contentDiv mt58">
+    <div class="contentDiv ">
       <div class="inputWrap flex-column flex-start strangBox pr47">
         <div class="c1 fn50 normalText mb30">Input</div>
-        <span class="fn35 c25 textF">Client Seed</span>
+        <p class="fn35 c25 textF">Client Seed</p>
         <div class="inputDiv mt28 aic mb30">
           <input type="text" v-model="inputClientText" @input.prevent="inputFuc">
         </div>
-        <span class="fn35 c25 textF ">Server Seed</span>
+        <p class="fn35 c25 textF ">Server Seed</p>
         <div class="inputDiv mt28 aic mb30">
           <input type="text" v-model="inputServerText">
         </div>
-        <span class="fn35 c25 textF ">Noce</span>
+        <p class="fn35 c25 textF ">Noce</p>
         <div class="inputDiv mt28 aic">
           <input type="text" v-model="inputNonceText">
         </div>
-        <div class="verifyBtn self_center bg3 br8 c1 fn26 textCenter normalText" @click="onVerifyBtn">Verify</div>
-        <div class="line mt45"></div>
+        <div class="verifyBtn self_center bg3 br8 c1  textCenter normalText" @click="onVerifyBtn">Verify</div>
+        <div class="line mt35"></div>
       </div>
       <div class="outputWrap strangBox pr47">
         <div class="c1 fn50 normalText mb30">Output</div>
-        <span class="fn35 c25 textF">sha256(server_seed)</span>
+        <p class="fn35 c25 textF">sha256(server_seed)</p>
         <div class="inputDiv mt24 aic mb30">
           <input type="text" :value="sha256(inputServerText)">
           <!-- <input type="text" v-model="outputShaText"> -->
         </div>
-        <span class="fn35 c25 textF ">hmac_sha256(client_seed:nonce, server_seed)</span>
+        <p class="fn35 c25 textF ">hmac_sha256(client_seed:nonce, server_seed)</p>
         <div class="inputDiv mt24 aic">
           <!-- <input type="text" :value="result_hash"> -->
           <input type="text" :value="outputHmacText">
         </div>
-        <div class="line mt45"></div>
+        <div class="line mt35"></div>
       </div>
       <div class="NUmberWrap">
-        <span class="fn35 c25 normalText">Convert each set of four bytes into a number</span>
+        <p class="fn35 c25 normalText">Convert each set of four bytes into a number</p>
         <div class="listTable mb40 mt20">
           <div class="table_wrapper">
             <table>

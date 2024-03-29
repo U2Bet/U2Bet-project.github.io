@@ -15,6 +15,104 @@
   <script src="https://unpkg.com/@vue/reactivity@3"></script>
   <script src="https://unpkg.com/@vue/runtime-dom@3"></script>
   <style type="text/css">
+  ::-webkit-scrollbar{
+    height:0.08rem;
+    display: block;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: #1D2329;
+    border-radius: 0.02666666666666667rem;
+  }
+
+.hiloContainerDiv .title{
+    font-size: 0.4rem;
+  }
+.hiloContainerDiv .detail{
+    font-size: 0.18666666666666668rem;
+    margin-top: 0.3466666666666667rem;
+  }
+.hiloContainerDiv .line{
+  width: 100%;
+    height: 0.013333333333333334rem;
+    background: #1D2329;
+}
+.hiloContainerDiv .contentDiv{
+  padding-bottom: 1.3333333333333333rem;
+  margin-top: 0.32rem;
+}
+.hiloContainerDiv .contentDiv .inputDiv{
+  width: 100%;
+  height: 0.5333333333333333rem;
+  background: #181B1F;
+  border: 0px solid #000000;
+  border-radius: 1.066667vw;
+  margin-top: 0.17333333333333334rem;
+  font-size: 0.18666666666666668rem;
+}
+.hiloContainerDiv .contentDiv .inputDiv input{
+  width: 100%;
+  height: 0.5333333333333333rem;
+  border: 0px solid #000000;
+  color: #fff;
+  background: transparent;
+  font-size: 0.18666666666666668rem;
+  font-family: Myriad Pro;
+  font-weight: 400;
+  border: none;
+  outline:none;
+  margin-left: 0.25333333333333335rem;
+}
+
+.hiloContainerDiv .contentDiv .outputWrap{
+  margin-top: 0.32rem;
+}
+.hiloContainerDiv .contentDiv .resultsWrap{
+  margin-top: 0.30666666666666664rem;
+}
+.listTable{
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+ .listTable .table_wrapper{
+  margin-bottom: 0.08rem;
+}
+ .listTable table {
+  border-collapse: collapse;
+}
+ .listTable table td{
+padding: 0 0.30666666666666664rem;
+height: 0.76rem;
+border: 0.02666666666666667rem solid #67707C;
+text-align: center;
+line-height: 0.76rem;
+}
+
+ .listTable table td img{
+  width:0.16rem;
+  height:0.16rem;
+  object-fit: contain;
+}
+
+.hiloContainerDiv .contentDiv .resultsWrap .finalResult{
+  margin-top: 0.64rem;
+}
+.hiloContainerDiv .contentDiv .resultsWrap .finalResult img{
+  width:0.18666666666666668rem;
+  height:0.18666666666666668rem;
+  object-fit: contain;
+}
+.hiloContainerDiv .contentDiv .resultsWrap .resultLine{
+  margin-top: 0.13333333333333333rem;
+  margin-bottom: 0.13333333333333333rem;
+  width: 100%;
+  height:0.02666666666666667rem;
+  background: #1D2329;
+}
+@media screen and (max-width: 750px) {
     ::-webkit-scrollbar{
     height: 0.933333vw;
     display: block;
@@ -22,6 +120,13 @@
   ::-webkit-scrollbar-thumb{
     background-color: #30333A;
     border-radius: 0.8vw;
+  }
+.hiloContainerDiv .title{
+    font-size: 8vw;
+  }
+.hiloContainerDiv .detail{
+    font-size: 5.333333vw;
+    margin-top:0;
   }
 
 .hiloContainerDiv{
@@ -37,6 +142,8 @@
 }
 .hiloContainerDiv .contentDiv{
   padding-bottom: 15.733333vw;  
+  margin-top: 7.733333vw; 
+
 }
 .hiloContainerDiv .contentDiv .inputDiv{
   width: 87.466667vw;
@@ -120,57 +227,59 @@ line-height: 9.333333vw;
   height: 0.266667vw;
   background: #30333A;
 }
-
+  
+}
   </style>
 
 </head>
 
-<body>
+<body
+  style="font-family:Myriad Pro, Inter,-apple-system,Framedcn,Helvetica Neue,Condensed,DisplayRegular,Helvetica,Arial,PingFang SC,Hiragino Sans GB,WenQuanYi Micro Hei,Microsoft Yahei,sans-serif;">
 <div id="app">
-  <div class="hiloContainerDiv strangBox">
+  <div class="hiloContainerDiv strangBox wrapPadding">
     <div class="titleDiv strangBox pr47">
-      <div class="fn60 normalText c1">HiLo verify</div>
-      <div class="fn40 textF c25">Third party script used to verify games on crash game.</div>
+      <div class="title normalText c1">HiLo verify</div>
+      <div class="detail textF c25">Third party script used to verify games on crash game.</div>
       <div class="line mt35"></div>
     </div>
-    <div class="contentDiv mt58">
+    <div class="contentDiv ">
       <div class="inputWrap flex-column flex-start strangBox pr47">
         <div class="c1 fn50 normalText mb30">Input</div>
-        <span class="fn35 c25 textF">Client Seed</span>
+        <p class="fn35 c25 textF">Client Seed</p>
         <div class="inputDiv mt28 aic mb30">
           <input type="text" v-model="inputClientText" @input.prevent="inputFuc">
         </div>
-        <span class="fn35 c25 textF ">Server Seed</span>
+        <p class="fn35 c25 textF ">Server Seed</p>
         <div class="inputDiv mt28 aic mb30">
           <input type="text" v-model="inputServerText">
         </div>
-        <span class="fn35 c25 textF ">Noce</span>
+        <p class="fn35 c25 textF ">Noce</p>
         <div class="inputDiv mt28 aic mb30">
           <input type="text" v-model="inputNonceText">
         </div>
-        <span class="fn35 c25 textF ">Round</span>
+        <p class="fn35 c25 textF ">Round</p>
         <div class="inputDiv mt28 aic">
           <input type="text" v-model="inputRoundText">
         </div>
-           <div class="verifyBtn self_center bg3 br8 c1 fn26 textCenter normalText" @click="onVerifyBtn">Verify</div>
-        <div class="line mt45"></div>
+           <div class="verifyBtn self_center bg3 br8 c1 textCenter normalText" @click="onVerifyBtn">Verify</div>
+        <div class="line mt35"></div>
       </div>
       <div class="outputWrap strangBox pr47">
         <div class="c1 fn50 normalText mb30">Output</div>
-        <span class="fn35 c25 textF">sha256(server_seed)</span>
+        <p class="fn35 c25 textF">sha256(server_seed)</p>
         <div class="inputDiv mt24 aic mb30">
           <input type="text" :value="sha256(inputServerText)">
           <!-- <input type="text" v-model="outputShaText"> -->
         </div>
-        <span class="fn35 c25 textF ">hmac_sha256(client_seed:nonce:round, server _seed)</span>
+        <p class="fn35 c25 textF ">hmac_sha256(client_seed:nonce:round, server _seed)</p>
         <div class="inputDiv mt24 aic">
           <input type="text" :value="outputHmacText">
         </div>
-        <div class="line mt45"></div>
+        <div class="line mt35"></div>
       </div>
       <div class="resultsWrap">
         <div class="c1 fn50 normalText mb30">Results</div>
-        <span class="fn35 c25 normalText">Bytes</span>
+        <p class="fn35 c25 normalText">Bytes</p>
         <div class="fn34 c25 normalText mt23">hmac_sha256(client_seed:nonce:round, server_seed)</div>
         <div class="listTable mb40 mt20">
           <div class="table_wrapper">
@@ -185,7 +294,7 @@ line-height: 9.333333vw;
   
           </div>
         </div>
-        <span class="fn35 c25 normalText">Bytes to Number</span>
+        <p class="fn35 c1 normalText">Bytes to Number</p>
         <div class="calculate fn35 textF mt20">
           <div class="c25 nowrap">({{ results.hex[0] + ', ' + results.hex[1] + ', ' + results.hex[2] + ', ' +
             results.hex[3] }}) -> [0, ...,52] =
@@ -194,25 +303,25 @@ line-height: 9.333333vw;
           </div>
           <div class="c25">&emsp;{{ Number(results.hex[0] / 256).toFixed(9) }}&emsp;({{ results.hex[0] }} / (256 ^ 1))
             +&ensp;{{
-            Number(results.hex[1] / (256 * 256)).toFixed(9) }}&emsp;({{ results.hex[1] }} / (256 ^ 2)) +&ensp;{{
-            Number(results.hex[2] / (256 * 256 * 256)).toFixed(9) }}&emsp;({{ results.hex[2] }} / (256 ^ 3)) +&ensp;{{
+            Number(results.hex[1] / (256 * 256)).toFixed(9) }}&emsp;({{ results.hex[1] }} / (256 ^ 2)) <br />+&ensp;{{
+            Number(results.hex[2] / (256 * 256 * 256)).toFixed(9) }}&emsp;({{ results.hex[2] }} / (256 ^ 3)) <br />+&ensp;{{
             Number(results.hex[3] / (256 * 256 * 256 * 256)).toFixed(9) }}&emsp;({{ results.hex[3] }} / (256 ^ 4))
-            =&ensp;{{
+            <br />=&ensp;{{
             numResult }}&emsp;(*&emsp;&emsp; 52&emsp;&emsp;) <br>=<span class="c21">&ensp;{{ Number(numResult * 52).toFixed(9) }}</span>
           </div>
   
         </div>
         <div class="finalResult">
-          <span class="fn35 c66 normalText">Final Result</span>
-          <div class="mt45 ">
-            <span class="c68 fn35">
+          <div class="fn35 c1 normalText">Final Result</div>
+          <div class="mt45 flex">
+            <div class="c68 fn35 aic">
               <img src="./image/Poker1.png" alt="" v-if="cardData[Math.floor(numResult * 52 )].type==4">
               <img src="./image/Poker2.png" alt="" v-else-if="cardData[Math.floor(numResult * 52 )].type == 3">
               <img src="./image/Poker3.png" alt="" v-else-if="cardData[Math.floor(numResult * 52 )].type == 2">
-              <img src="./image/Poker4.png" alt="" v-else-if="cardData[Math.floor(numResult * 52 )].type == 1">{{
-                cardData[Math.floor(numResult * 52 )].card }},</span>
-            <span class="c68 fn35">{{ Math.floor(numResult * 52 )}},</span>
-            <span class="c68 fn35">{{cardData[Math.floor(numResult * 52 )].index}}</span>
+              <img src="./image/Poker4.png" alt="" v-else-if="cardData[Math.floor(numResult * 52 )].type == 1"><p>{{
+                cardData[Math.floor(numResult * 52 )].card }},</p></div>
+            <p class="c68 fn35">{{ Math.floor(numResult * 52 )}},</p>
+            <p class="c68 fn35">{{cardData[Math.floor(numResult * 52 )].index}}</p>
           </div>
           <div class="resultLine strangBox"></div>
           <div class="cardList listTable">

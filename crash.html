@@ -21,18 +21,96 @@
   <script src="https://unpkg.com/@vue/reactivity@3"></script>
   <script src="https://unpkg.com/@vue/runtime-dom@3"></script>
   <style type="text/css">
+    
+.crashContainerDiv .title{
+    font-size: 0.4rem;
+  }
+.crashContainerDiv .detail{
+    font-size: 0.18666666666666668rem;
+    margin-top: 0.3466666666666667rem;
+  }
+.crashContainerDiv .line{
+    width: 100%;
+    height: 0.013333333333333334rem;
+    background: #1D2329;
+  }
+.crashContainerDiv .contentDiv{
+  padding-bottom: 100px;
+  margin-top: 0.32rem;
+  }
+.crashContainerDiv .contentDiv .inputDiv{
+  width: 100%;
+  /* width: 18rem; */
+  height: 0.5333333333333333rem;
+  background: #181B1F;
+  border: none;
+  border-radius: 0.10666666666666667rem;
+  margin-top: 0.17333333333333334rem;
+  font-size: 0.18666666666666668rem;
+}
+.crashContainerDiv .contentDiv .inputDiv img{
+  width: 0.22666666666666666rem;
+  height: 0.22666666666666666rem;
+  object-fit: contain;
+  margin-left: 0.26666666666666666rem;
+  margin-right: 0.13333333333333333rem;
+}
+.crashContainerDiv .contentDiv .inputDiv input{
+  width: 100%;
+  height: 0.5333333333333333rem;
+  border: 0px solid #000000;
+  color: #fff;
+  background: transparent;
+  font-size: 0.18666666666666668rem;
+  font-family: Myriad Pro;
+  font-weight: 400;
+  border: none;
+  outline:none;
+margin-left: 0.25333333333333335rem;
+}
+.crashContainerDiv .contentDiv .hashList{
+  display: none;
+}
+.table table{
+  margin-top: 0.32rem;
+  width: 100%;
+  font-size:0.18666666666666668rem;
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-align: left;
+  
+}
+.table table  tr{
+  padding: 0.17333333333333334rem 0.36rem;
+  height: 0.5333333333333333rem;
+}
 
+.table table  tr .one{
+  padding-left: 0.17333333333333334rem;
+}
+.table table  tr .two{
+  width: 20%;
+}
+@media screen and (max-width: 750px) {
 .crashContainerDiv{
   /* width: 100vw;
   height: 100vh; */
   padding: 14vw 6.27vw 0 6.27vw;
 }
+.crashContainerDiv .title{
+    font-size: 8vw;
+  }
+.crashContainerDiv .detail{
+    font-size: 5.333333vw;
+    margin-top:0;
+  }
 .crashContainerDiv .line{
     width: 100%;
     height: 0.266667vw;
     background: #30333A;
   }
 .crashContainerDiv .contentDiv{
+  margin-top: 7.733333vw;
   padding-bottom: 15.733333vw;
   }
 .crashContainerDiv .contentDiv .inputDiv{
@@ -65,19 +143,30 @@
   outline:none;
 
 }
-.crashContainerDiv .contentDiv .verifyBtn{
+/* .crashContainerDiv .contentDiv .verifyBtn{
   width: 16.666667vw;
   height: 9.2vw;
   border: 0px solid #000000;
   margin-top: 2.933333vw;
   line-height: 9.2vw;
+  font-size: 3.466667vw ;
+} */
+.table{
+  display: none;
 }
 .crashContainerDiv .contentDiv .hashList{
   margin-top: 8.533333vw;
+  display: block;
 }
 .crashContainerDiv .contentDiv .hashList .griditem{
   width: 87.466667vw;
   height: 9.2vw;
+  font-size: 4.4vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
 }
 
 
@@ -85,38 +174,56 @@
 
 </head>
 
-<body>
+<body
+  style="font-family:Myriad Pro, Inter,-apple-system,Framedcn,Helvetica Neue,Condensed,DisplayRegular,Helvetica,Arial,PingFang SC,Hiragino Sans GB,WenQuanYi Micro Hei,Microsoft Yahei,sans-serif;">
+
 <div id="app">
-  <div class="crashContainerDiv strangBox">
-    <div class="titleDiv">
-      <div class="fn60 normalText c1">Crash - Game</div>
-      <div class="fn60 normalText c1">Verification Script</div>
-      <div class="fn40 textF c25">Third party script used to verify games on crash game.</div>
+  <div class="crashContainerDiv strangBox wrapPadding">
+    <div class="titleDiv" >
+      <div class="title normalText c1">Crash - Game Verification Script</div>
+      <!-- <div class="fn60 normalText c1"></div> -->
+      <div class="detail textF c25">Third party script used to verify games on crash game.</div>
       <div class="line mt35"></div>
     </div>
-    <div class="contentDiv mt58">
-      <span class="fn35 c25 textF">Game's hash</span>
+    <div class="contentDiv ">
+      <p class="fn35 c25 textF">Game's hash</p>
       <div class="inputDiv aic mb30">
         <img src="./image/keyIcon.png " alt="">
         <input type="text" v-model="hashText" class="bg48">
       </div>
-      <span class="fn35 c25 textF">Amount of games</span>
+      <p class="fn35 c25 textF">Amount of games</p>
       <div class="inputDiv aic">
         <img src="./image/hashTag.png " alt="">
         <input type="text" v-model="hashCount">
       </div>
-      <div class="verifyBtn bg3 br8 c1 fn26 textCenter normalText" @click="onVerifyBtn">Verify</div>
+      <div class="verifyBtn bg3 br8 c1 textCenter normalText" @click="onVerifyBtn">Verify</div>
       <div class="line mt45"></div>
       <div class="hashList">
-        <div class="griditem flex-middle">
+        <div class="griditem">
           <span class="fn35 c25 textF ml16">Game's hash</span>
-          <span class="fn35 c25 textF mr52">Bust</span>
+          <span class="bust fn35 c25 textF mr52">Bust</span>
         </div>
-        <div class="griditem flex-middle" v-for="(item,index) in hashData" :key="index" :class="index%2==0 ? 'bg6' : ''">
-          <span class="fn33 c2 textF flex-1 ellipsisHidden ml16">{{item.hash}}</span>
-          <span class="fn33 textF mr59 ml45" :class="item.bust>2 ? 'c21' : 'c22'">{{item.bust}}</span>
+        <div class="griditem " v-for="(item,index) in hashData" :key="index" :class="index%2==0 ? 'bg6' : ''">
+          <span class=" c2 textF flex-1 ellipsisHidden ml16">{{item.hash}}</span>
+          <span class="bust textF mr59 ml45" :class="item.bust>2 ? 'c21' : 'c22'">{{item.bust}}</span>
         </div>
   
+      </div>
+      <div class="table">
+        <table>
+          <thead>
+            <tr class="c2">
+              <th class="one">Game's hash</th>
+              <th class="two">Bust</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item,index) in hashData" :key="index" :class="index%2==0 ? 'bg6' : ''">
+              <td class="c3 one">{{item.hash}}</td>
+              <td class="two" :class="item.bust>2 ? 'c21' : 'c22'">{{item.bust}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

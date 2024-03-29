@@ -15,6 +15,92 @@
   <script src="https://unpkg.com/@vue/reactivity@3"></script>
   <script src="https://unpkg.com/@vue/runtime-dom@3"></script>
   <style type="text/css">
+  ::-webkit-scrollbar{
+    height:0.08rem;
+    display: block;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: #1D2329;
+    border-radius: 0.02666666666666667rem;
+  }
+.diceContainerDiv .title{
+    font-size: 0.4rem;
+  }
+.diceContainerDiv .detail{
+    font-size: 0.18666666666666668rem;
+    margin-top: 0.3466666666666667rem;
+  }
+.diceContainerDiv .line{
+    width: 100%;
+    height: 0.013333333333333334rem;
+    background: #1D2329;
+  }
+
+
+    .diceContainerDiv .contentDiv {
+  padding-bottom: 1.3333333333333333rem;
+  margin-top: 0.32rem;
+    }
+
+    .diceContainerDiv .contentDiv .inputDiv {
+  width: 100%;
+  /* width: 18rem; */
+  height: 0.5333333333333333rem;
+  background: #181B1F;
+  border: none;
+  border-radius: 0.10666666666666667rem;
+  margin-top: 0.17333333333333334rem;
+  font-size: 0.18666666666666668rem;
+  
+    }
+
+    .diceContainerDiv .contentDiv .inputDiv input {
+  width: 100%;
+  height: 0.5333333333333333rem;
+  border: 0px solid #000000;
+  color: #fff;
+  background: transparent;
+  font-size: 0.18666666666666668rem;
+  font-family: Myriad Pro;
+  font-weight: 400;
+  border: none;
+  outline:none;
+  margin-left: 0.25333333333333335rem;
+    }
+
+    .diceContainerDiv .contentDiv .outputWrap {
+  margin-top: 0.32rem;
+    }
+
+    .diceContainerDiv .contentDiv .resultsWrap {
+  margin-top: 0.30666666666666664rem;
+    }
+
+    .diceContainerDiv .contentDiv .resultsWrap .listTable {
+  width: 100%;
+      height: 100%;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .diceContainerDiv .contentDiv .resultsWrap .listTable .table_wrapper {
+  margin-bottom: 0.08rem;
+    }
+
+    .diceContainerDiv .contentDiv .resultsWrap .listTable table {
+      border-collapse: collapse;
+    }
+
+    .diceContainerDiv .contentDiv .resultsWrap .listTable table td {
+padding: 0 0.30666666666666664rem;
+height: 0.76rem;
+border: 0.02666666666666667rem solid #30333A;
+text-align: center;
+line-height: 0.76rem;
+    }
+@media screen and (max-width: 750px) {
     ::-webkit-scrollbar {
       height: 0.933333vw;
       display: block;
@@ -24,6 +110,13 @@
       background-color: #30333A;
       border-radius: 0.8vw;
     }
+.diceContainerDiv .title{
+    font-size: 8vw;
+  }
+.diceContainerDiv .detail{
+    font-size: 5.333333vw;
+    margin-top:0;
+  }
 
     .diceContainerDiv {
       /* width: 100%;
@@ -49,6 +142,7 @@
       border: 0px solid #000000;
       border-radius: 1.066667vw;
       font-size: 4.4vw;
+      
     }
 
     .diceContainerDiv .contentDiv .inputDiv input {
@@ -110,39 +204,42 @@
       width: 66.666667vw;
       height: 36.933333vw;
     }
+  
+}
   </style>
 
 </head>
 
-<body>
+<body
+  style="font-family:Myriad Pro, Inter,-apple-system,Framedcn,Helvetica Neue,Condensed,DisplayRegular,Helvetica,Arial,PingFang SC,Hiragino Sans GB,WenQuanYi Micro Hei,Microsoft Yahei,sans-serif;">
   <div id="app">
-    <div class="diceContainerDiv strangBox">
+    <div class="diceContainerDiv strangBox wrapPadding">
       <div class="titleDiv strangBox pr47">
-        <div class="fn60 normalText c1">Lottery Verify</div>
-        <div class="fn40 textF c25">Third party script used to verify games on crash game.</div>
+        <div class="title normalText c1">Lottery Verify</div>
+        <div class="detail textF c25">Third party script used to verify games on crash game.</div>
         <div class="line mt35"></div>
       </div>
-      <div class="contentDiv mt58">
+      <div class="contentDiv ">
         <div class="inputWrap flex-column flex-start strangBox pr47">
           <div class="c1 fn50 normalText mb30">Input</div>
-          <span class="fn35 c25 textF">Server Seed</span>
+          <p class="fn35 c25 textF">Server Seed</p>
           <div class="inputDiv mt28 aic mb30">
             <input type="text" v-model="inputServerText" @input.prevent="inputFuc">
           </div>
-          <span class="fn35 c25 textF ">Client Seed (Hashed)</span>
+          <p class="fn35 c25 textF ">Client Seed (Hashed)</p>
           <div class="inputDiv mt28 aic mb30">
             <input type="text" v-model="inputClientText">
           </div>
-          <div class="verifyBtn self_center bg3 br8 c1 fn26 textCenter normalText" @click="onVerifyBtn">Verify</div>
+          <div class="verifyBtn self_center bg3 br8 c1  textCenter normalText" @click="onVerifyBtn">Verify</div>
           <div class="line mt45"></div>
         </div>
         <div class="outputWrap strangBox pr47">
           <div class="c1 fn50 normalText mb30">Output</div>
-          <span class="fn35 c25 textF ">HMAC_SHA256 (clientSeed, serverSeed)</span>
+          <p class="fn35 c25 textF ">HMAC_SHA256 (clientSeed, serverSeed)</p>
           <div class="inputDiv mt24 aic mb30">
             <input type="text" :value="outputHmacText">
           </div>
-          <span class="fn35 c25 textF">HMAC_SHA256 (clientSeed, serverSeed)</span>
+          <p class="fn35 c25 textF">HMAC_SHA256 (clientSeed, serverSeed)</p>
           <div class="inputDiv mt24 aic ">
             <input type="text" v-model="outputResult">
           </div>
